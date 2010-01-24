@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "//gwt-module/" "http://google-web-toolkit.googlecode.com/svn/tags/1.6.2/distro-source/core/src/gwt-module.dtd">
+<module>
+
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	
+	<extend-property name="locale" values="en" />
+
+	<!--  inherit css based theme -->
+	<inherits name='com.google.gwt.user.theme.standard.Standard' />
+	
+	<!--  see http://code.google.com/p/gwtx/ -->
+	<inherits name="com.googlecode.gwtx.Java" />
+	
+	<inherits name='com.google.gwt.gen2.Gen2' /> 
+
+	<!-- Specify the app entry point class. -->
+	<entry-point class='com.example.client.Application' />
+	
+	<stylesheet src="css/Application.css" />
+	
+</module>
