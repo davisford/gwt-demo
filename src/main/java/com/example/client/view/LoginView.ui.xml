@@ -1,0 +1,50 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		/* Add CSS here. See the GWT docs on UI Binder for more details */
+		
+		.vbox {
+			margin: 0.5em;
+			background-color:#42A3E4;
+			border:1px solid blue;
+		}
+		
+		.hbox {
+			spacing: 5;
+		}
+	</ui:style>
+
+	<g:LayoutPanel>
+		<g:layer left="10%" right="10%" top="10%" bottom="10%">
+			<g:DecoratorPanel ui:field="loginPanel">
+				<g:VerticalPanel styleName="{style.vbox}">
+					<g:HorizontalPanel spacing="5">
+						<g:cell width='15em' horizontalAlignment='ALIGN_RIGHT'>
+							<g:Label>Username</g:Label>
+						</g:cell>
+						<g:cell>
+							<g:TextBox ui:field="usernameBox" width="100%"></g:TextBox>
+						</g:cell>
+					</g:HorizontalPanel>
+					<g:HorizontalPanel spacing="5">
+						<g:cell>
+							<g:Label>Password</g:Label>
+						</g:cell>
+						<g:cell>
+							<g:PasswordTextBox ui:field="passwordBox" width="100%"></g:PasswordTextBox>
+						</g:cell>
+					</g:HorizontalPanel>
+					<g:cell horizontalAlignment='ALIGN_RIGHT'>
+						<g:Button ui:field="loginButton" text="Login"></g:Button>
+					</g:cell>
+					<g:cell>
+						<g:Label ui:field="errorLabel"/>
+					</g:cell>
+				</g:VerticalPanel>
+			</g:DecoratorPanel>
+		</g:layer>
+
+	</g:LayoutPanel>
+
+</ui:UiBinder> 

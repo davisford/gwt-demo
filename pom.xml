@@ -70,18 +70,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<!-- http://code.google.com/p/gwtx/ -->
-			<groupId>com.google.code.gwtx</groupId>
-			<artifactId>gwtx</artifactId>
-			<version>1.5.3</version>
-		</dependency>
-		<dependency>
-			<!-- http://code.google.com/p/google-web-toolkit-incubator/ -->
-			<groupId>com.google</groupId>
-			<artifactId>gwt-incubator</artifactId>
-			<version>20091216-r1739</version>
-		</dependency>
-		<dependency>
 			<!-- spring web MVC -->
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -93,54 +81,10 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-			<!-- JSTL -->
-			<groupId>apache-taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-		</dependency>
-		<dependency>
-			<!-- JSTL -->
-			<groupId>apache-taglibs</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.1.2</version>
-		</dependency>
-		<dependency>
-			<!-- for base64 support -->
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.3</version>
-		</dependency>
-		<dependency>
-			<!-- used for parsing JSON on server side -->
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.3</version>
-			<classifier>jdk15</classifier>
-		</dependency>
-		<dependency>
-			<!-- to handle file uploads to the server -->
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-		<dependency>
-			<!-- needed by commons-fileupload -->
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
 			<!-- for logging -->
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.13</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<!-- http://urlrewritefilter.googlecode.com -->
-			<groupId>org.tuckey</groupId>
-			<artifactId>urlrewritefilter</artifactId>
-			<version>3.2.0</version>
 		</dependency>
 
 		<!-- TEST SCOPE DEPENDENCIES -->
@@ -190,6 +134,7 @@
 					<webXml>${basedir}/war/WEB-INF/web.xml</webXml>
 					<hostedWebapp>${basedir}/war</hostedWebapp>
 					<extraJvmArgs>-Xmx1024M</extraJvmArgs>
+					<runTarget>com.example.Application/Application.html</runTarget>
 				</configuration>
 				<executions>
 					<execution>

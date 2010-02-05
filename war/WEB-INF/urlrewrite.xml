@@ -11,26 +11,30 @@
 <urlrewrite>
 
     <rule>
-        <note>
-            The rule means that requests to /test/status/ will be redirected to /rewrite-status
-            the url will be rewritten.
-        </note>
-        <from>/test/status/</from>
-        <to type="redirect">%{context-path}/rewrite-status</to>
+        <note>must specify 3-letter-code or redirect to homepage</note>
+        <from>^/user/$</from>
+        <to last="true" type="redirect">%{context-path}/Application.html</to>
     </rule>
-
-
+    <rule>
+        <note>no trailing slash; must specify 3-letter-code or redirect to homepage</note>
+        <from>^/user$</from>
+        <to last="true" type="redirect">%{context-path}/index.html</to>
+    </rule>
+    <rule>
+        <from>^/user/([a-z]{3})$</from>
+        <to>/com.example.Application/Application.html?c=$1</to>
+    </rule>
     <outbound-rule>
-        <note>
-            The outbound-rule specifies that when response.encodeURL is called (if you are using JSTL c:url)
-            the url /rewrite-status will be rewritten to /test/status/.
-
-            The above rule and this outbound-rule means that end users should never see the
-            url /rewrite-status only /test/status/ both in thier location bar and in hyperlinks
-            in your pages.
-        </note>
-        <from>/rewrite-status</from>
-        <to>/test/status/</to>
+        <from>^/com.example.Application/Application.html?c=([a-z]{3})$</from>
+        <to encode="false">/user/$1</to>
+    </outbound-rule>
+    <rule>
+        <from>^/user/(.*)$</from>
+        <to>/com.example.Application/$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/com.example.Application/(.*)$</from>
+        <to encode="true">/user/$1</to>
     </outbound-rule>
 
 

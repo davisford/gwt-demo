@@ -9,11 +9,6 @@
 
 	<!--  inherit css based theme -->
 	<inherits name='com.google.gwt.user.theme.standard.Standard' />
-	
-	<!--  see http://code.google.com/p/gwtx/ -->
-	<inherits name="com.googlecode.gwtx.Java" />
-	
-	<inherits name='com.google.gwt.gen2.Gen2' /> 
 
 	<!-- Specify the app entry point class. -->
 	<entry-point class='com.example.client.Application' />

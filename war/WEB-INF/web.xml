@@ -10,73 +10,12 @@
 		<session-timeout>20</session-timeout>
 	</session-config>
 
-	<!-- FILTERS -->
-	<!--	<filter>-->
-	<!--		<filter-name>UrlRewriteFilter</filter-name>-->
-	<!--
-		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter
-	-->
-	<!--		</filter-class>-->
-	<!--	</filter>-->
-	<!--	-->
-	<!--	<filter-mapping>-->
-	<!--		<filter-name>UrlRewriteFilter</filter-name>-->
-	<!--		<url-pattern>/*</url-pattern>-->
-	<!--	</filter-mapping>-->
-
 	<!-- CONTEXT PARAMS -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 
-	<!-- LISTENERS -->
-	<!--	<listener>-->
-	<!--
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	-->
-	<!--	</listener>-->
-	<!--	<listener>-->
-
-	<!--
-		<listener-class>org.apache.commons.fileupload.servlet.FileCleanerCleanup</listener-class>
-	-->
-	<!--  	</listener>-->
-
-	<!-- SERVLETS -->
-	<!--	<servlet>-->
-	<!--
-		<description>This guy dispatches to all other controllers found in
-		dispatcher-servlet.xml</description>
-	-->
-	<!--		<servlet-name>dispatcher</servlet-name>-->
-	<!--
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-	-->
-	<!--		<load-on-startup>1</load-on-startup>-->
-	<!--	</servlet>-->
-<!---->
-	<!--	<servlet>-->
-	<!--
-		<description>Not sure why this is pulled in / necessary</description>
-	-->
-	<!--		<servlet-name>remoteLoggingServiceImpl</servlet-name>-->
-	<!--
-		<servlet-class>com.google.gwt.libideas.logging.server.RemoteLoggingServiceImpl
-	-->
-	<!--		</servlet-class>-->
-	<!--	</servlet>-->
-	<!--	-->
-	<!--	<servlet>-->
-	<!--
-		<description>Requires no security; bootstrap login page</description>
-	-->
-	<!--		<servlet-name>bootstrap</servlet-name>-->
-	<!--
-		<servlet-class>com.budco.audit.das.server.service.BootstrapServiceImpl</servlet-class>
-	-->
-	<!--		<load-on-startup>2</load-on-startup>-->
-	<!--	</servlet>-->
 	<servlet>
 		<servlet-name>remoteLoggingServiceImpl</servlet-name>
 		<servlet-class>com.google.gwt.libideas.logging.server.RemoteLoggingServiceImpl</servlet-class>
@@ -87,13 +26,9 @@
 	</servlet-mapping>
 
 	<!-- SERVLET MAPPINGS -->
-	<!--
-		Keep in mind: JBoss does not allow multiple <url-pattern> per
-		<servlet-name>; You have to add one-to-one mapping to url.
-	-->
 
 	<!-- WELCOME FILE -->
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>Application.html</welcome-file>
 	</welcome-file-list>
 </web-app>
