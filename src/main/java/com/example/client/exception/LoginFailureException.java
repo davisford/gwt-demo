@@ -3,13 +3,13 @@
  */
 package com.example.client.exception;
 
-import java.io.Serializable;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * @author davisford
  *
  */
-public class LoginFailureException extends Exception implements Serializable {
+public class LoginFailureException extends Exception implements IsSerializable {
 
 	// serial uid
 	private static final long serialVersionUID = 1L;

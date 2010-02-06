@@ -3,6 +3,7 @@
  */
 package com.example.client.presenter;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.client.event.LoginEvent;
@@ -16,6 +17,7 @@ import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -88,10 +90,12 @@ public class LoginPresenter implements Presenter {
 	    container.add(display.asWidget());
 	}
 	
+	private User user;
+	
 	private void doLogin() {
 		// clear all previous errors
 		display.toggleError(false, null);
-		final User user = new User(display.username(), display.password());
+	    user = new User(display.username(), display.password());
 		if(user.isValid()) {
 			loginService.login(user, callback);
 		} else {
@@ -116,14 +120,19 @@ public class LoginPresenter implements Presenter {
 		}		
 	};
 	
-	AsyncCallback<User> callback = new AsyncCallback<User>() {
+	AsyncCallback<String> callback = new AsyncCallback<String>() {
 		@Override
 		public void onFailure(Throwable t) {
 			display.toggleError(true, t.getMessage());
 		}
 
 		@Override
-		public void onSuccess(User user) {
+		public void onSuccess(String sessionId) {
+			final long DURATION = 1000 * 60 * 60 * 24 * 14;
+			final Date expires = new Date(System.currentTimeMillis() + DURATION);
+			Cookies.setCookie("sid", sessionId, expires, null, "/", false);
+			
+			// fire event
 			eventBus.fireEvent(new LoginEvent(user));
 		}
 		

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
-        					http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
 	<display-name>GWT Demo App</display-name>
@@ -9,6 +8,11 @@
 	<session-config>
 		<session-timeout>20</session-timeout>
 	</session-config>
+	
+	<!-- LISTENERS -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 
 	<!-- CONTEXT PARAMS -->
 	<context-param>
@@ -16,6 +20,19 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 
+	<!-- SERVLETS -->
+	<servlet>
+		<description>Dispatches to all other controllers found in dispatcher-servlet.xml</description>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<!-- Dispatcher handles ALL of our GWT-RPC -->
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.rpc</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>remoteLoggingServiceImpl</servlet-name>
 		<servlet-class>com.google.gwt.libideas.logging.server.RemoteLoggingServiceImpl</servlet-class>

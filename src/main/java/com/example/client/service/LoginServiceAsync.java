@@ -14,6 +14,6 @@ public interface LoginServiceAsync {
 	/**
 	 * @see {@link LoginService#login(User)}
 	 */
-	void login(User user, AsyncCallback<User> callback);
+	void login(User user, AsyncCallback<String> callback);
 	
 }

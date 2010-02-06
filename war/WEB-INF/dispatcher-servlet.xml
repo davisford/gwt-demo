@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<description>Maps the request URL to a concrete controller instance
+		</description>
+		<property name="mappings">
+			<value>
+				/**/login.rpc=loginController
+            </value>
+		</property>
+	</bean>
+
+	<!--
+		####################################################################
+		GWT-RPC CONTROLLERS RpcController wraps our service in order to
+		decode the incoming request then delegates processing of the call to
+		the POJO service and then encodes the return value forwarding the
+		response.
+		####################################################################
+	-->
+
+	<bean id="loginController" class="com.example.server.controller.RpcController">
+		<description>Login controller for contract holders</description>
+		<property name="service" ref="loginService" />
+	</bean>
+
+</beans>

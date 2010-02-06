@@ -3,10 +3,12 @@ package com.example.client;
 import com.example.client.event.LoginEvent;
 import com.example.client.event.LoginEventHandler;
 import com.example.client.presenter.LoginPresenter;
+import com.example.client.presenter.MainPresenter;
 import com.example.client.presenter.Presenter;
 import com.example.client.service.LoginService;
 import com.example.client.service.LoginServiceAsync;
 import com.example.client.view.LoginView;
+import com.example.client.view.MainView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -40,6 +42,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 	
 	private void doLogin() {
 		History.newItem("main", false);
+		History.fireCurrentHistoryState();
 	}
 	
 	
@@ -51,6 +54,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			
 			if(token.equals("login")) {
 				presenter = new LoginPresenter(loginService, eventBus, new LoginView());
+			} else if(token.equals("main")) {
+				presenter = new MainPresenter(eventBus, new MainView());
 			}
 			
 			if(presenter != null) {

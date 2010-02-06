@@ -18,8 +18,8 @@ public interface LoginService extends RemoteService {
 	 * Login to the application
 	 * <p>
 	 * @param user the user object with {@link User#getUsername()} and {@link User#getPassword()} filled in.
-	 * @return the user object with {@link User#getSessionId()} filled in.
+	 * @return the sessionId that is necessary for all future GWT-RPC requests
 	 * @throws LoginFailureException if login fails
 	 */
-	User login(User user) throws LoginFailureException;
+	String login(User user) throws LoginFailureException;
 }

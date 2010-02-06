@@ -3,12 +3,12 @@
  */
 package com.example.client.model;
 
-import java.io.Serializable;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * The model class that represents a user of the system
  */
-public class User implements Serializable {
+public class User implements IsSerializable {
 	
 	// serial uid
 	private static final long serialVersionUID = 1L;
@@ -16,11 +16,9 @@ public class User implements Serializable {
 	private String username;
 	
 	private String password;
-	
-	private String sessionId;
 
 	/**
-	 * Must have default no-arg constructor
+	 * Must have default no-arg constructor for GWT-RPC
 	 */
 	public User() {}
 	
@@ -62,12 +60,44 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public final String getSessionId() {
-		return sessionId;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result
+				+ ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
 
-	public final void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "User [password=*******, username=" + username + "]";
+	}
+
+
 
 }

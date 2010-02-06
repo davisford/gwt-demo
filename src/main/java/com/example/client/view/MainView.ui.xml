@@ -1,0 +1,27 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		/* Add CSS here. See the GWT docs on UI Binder for more details */
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<g:DockLayoutPanel unit='EM'>
+		<g:north size='5'>
+			<g:Label>Top</g:Label>
+		</g:north>
+		<g:center>
+			<g:Label>Body</g:Label>
+		</g:center>
+		<g:west size='192'>
+			<g:HTML>
+				<ul>
+					<li>Sidebar</li>
+					<li>Sidebar</li>
+					<li>Sidebar</li>
+				</ul>
+			</g:HTML>
+		</g:west>
+	</g:DockLayoutPanel>
+</ui:UiBinder> 
