@@ -3,16 +3,28 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 		/* Add CSS here. See the GWT docs on UI Binder for more details */
-		.important {
+		.headerText {
 			font-weight: bold;
+		}
+		
+		.headerTable tr td {
+			border: 0;
+			margin: 0.2em, 0.2em, 0.2em, 0.2em;	
+			padding: 5px;
+			font-weight: bold;
+			font-size: 11px;
+			text-align: right;	
 		}
 	</ui:style>
 	<g:DockLayoutPanel unit='EM'>
-		<g:north size='5'>
-			<g:Label>Top</g:Label>
+		<g:north size='2'>
+			<g:HorizontalPanel styleName="{style.headerTable}" horizontalAlignment="ALIGN_RIGHT" width="100%" >
+				<g:Label styleName="{style.headerText}" ui:field="welcomeLabel">Welcome back</g:Label>
+				<g:Hyperlink styleName="{style.headerText}" targetHistoryToken="login" ui:field="logoutLink">Logout</g:Hyperlink>
+			</g:HorizontalPanel>
 		</g:north>
 		<g:center>
-			<g:Label>Body</g:Label>
+			<g:Label>Body goes here</g:Label>
 		</g:center>
 		<g:west size='192'>
 			<g:HTML>

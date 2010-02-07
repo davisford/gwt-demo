@@ -7,7 +7,7 @@
 						http://www.springframework.org/schema/tx
                         http://www.springframework.org/schema/tx/spring-tx.xsd">
                         
-    <bean id="loginService" class="com.example.server.service.LoginServiceImpl">
+    <bean id="userService" class="com.example.server.service.UserServiceImpl">
     	<property name="userDao" ref="userDao" />
     </bean>                    
                         

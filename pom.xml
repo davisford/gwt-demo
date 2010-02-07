@@ -36,7 +36,8 @@
 			<url>http://cobogw.googlecode.com/svn/maven2</url>
 		</repository>
 		<repository>
-			<!-- this is a total hack to get around some jars that aren't in public mvn repos; you should deploy to local repo manager instead -->
+			<!-- this is a total hack to get around some jars that aren't in public mvn repos; you should deploy to local repo manager instead
+-->
 			<id>local</id>
 			<url>file:///${basedir}/lib</url>
 			<layout>legacy</layout>

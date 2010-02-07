@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.example.client.event.LoginEvent;
 import com.example.client.model.User;
-import com.example.client.service.LoginServiceAsync;
+import com.example.client.service.UserServiceAsync;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -53,7 +53,7 @@ public class LoginPresenter implements Presenter {
 		void toggleError(boolean val, String msg);
 	}
 	
-	private LoginServiceAsync loginService;
+	private UserServiceAsync loginService;
 	private HandlerManager eventBus;
 	private Display display;
 	
@@ -64,7 +64,7 @@ public class LoginPresenter implements Presenter {
 	 * @param eventBus application event bus
 	 * @param display the display for this presenter
 	 */
-	public LoginPresenter(LoginServiceAsync loginService, HandlerManager eventBus, Display display) {
+	public LoginPresenter(UserServiceAsync loginService, HandlerManager eventBus, Display display) {
 		this.loginService = loginService;
 		this.eventBus = eventBus;
 		this.display = display;

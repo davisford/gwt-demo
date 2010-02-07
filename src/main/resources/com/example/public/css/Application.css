@@ -1,4 +1,5 @@
 
-.errorBorder {
-	border:1px solid red;
+.errorText {
+	color: red;
+	font-style: italic;
 }

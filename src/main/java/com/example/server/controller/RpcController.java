@@ -6,7 +6,9 @@ package com.example.server.controller;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
@@ -27,6 +29,8 @@ public class RpcController extends RemoteServiceServlet implements Controller,
 
 	private static final long serialVersionUID = 1L;
 	
+	private static final Logger LOGGER = Logger.getLogger(RpcController.class);
+	
 	private ServletContext servletContext;
 	
 	// injected service that handles the call
@@ -40,11 +44,14 @@ public class RpcController extends RemoteServiceServlet implements Controller,
 	 */
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// delegate, will eventually call into processCall below
-		super.doPost(request, response);
+		final HttpSession session = request.getSession(true);
+		LOGGER.debug("session id: "+session.getId());
 		
 		// inject the session into the service class
-		((AbstractService) service).setHttpSession(request.getSession());
+		((AbstractService) service).setHttpSession(session);
+		
+		// delegate, will eventually call into processCall below
+		super.doPost(request, response);
 		
 		// no need for ModelAndView
 		return null;

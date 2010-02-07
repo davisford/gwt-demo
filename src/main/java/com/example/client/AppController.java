@@ -5,8 +5,8 @@ import com.example.client.event.LoginEventHandler;
 import com.example.client.presenter.LoginPresenter;
 import com.example.client.presenter.MainPresenter;
 import com.example.client.presenter.Presenter;
-import com.example.client.service.LoginService;
-import com.example.client.service.LoginServiceAsync;
+import com.example.client.service.UserService;
+import com.example.client.service.UserServiceAsync;
 import com.example.client.view.LoginView;
 import com.example.client.view.MainView;
 import com.google.gwt.core.client.GWT;
@@ -20,11 +20,11 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
 	private HandlerManager eventBus;
 	private HasWidgets container;
-	private LoginServiceAsync loginService;
+	private UserServiceAsync userService;
 	
 	public AppController(HandlerManager eventBus) {
 		this.eventBus = eventBus;
-		loginService = (LoginServiceAsync) GWT.create(LoginService.class);
+		userService = (UserServiceAsync) GWT.create(UserService.class);
 		bind();
 	}
 	
@@ -53,9 +53,9 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			Presenter presenter = null;
 			
 			if(token.equals("login")) {
-				presenter = new LoginPresenter(loginService, eventBus, new LoginView());
+				presenter = new LoginPresenter(userService, eventBus, new LoginView());
 			} else if(token.equals("main")) {
-				presenter = new MainPresenter(eventBus, new MainView());
+				presenter = new MainPresenter(userService, eventBus, new MainView());
 			}
 			
 			if(presenter != null) {

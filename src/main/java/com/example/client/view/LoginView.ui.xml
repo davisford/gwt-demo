@@ -4,47 +4,40 @@
 	<ui:style>
 		/* Add CSS here. See the GWT docs on UI Binder for more details */
 		
-		.vbox {
-			margin: 0.5em;
-			background-color:#42A3E4;
-			border:1px solid blue;
+		.header {
+    		background: #eee;
+    		border-bottom: 1px solid #666;
+    		padding: 0.5em;
+  		}
+  		
+  		 .headerItem {
+    		margin-bottom:0.5em;
+    		text-align: right;
+  		}
+		
+		.errorText {
+			color: red;
+			font-style: italic;
+			text-align: left;
 		}
 		
-		.hbox {
-			spacing: 5;
+		.textBox {	
+			margin-left: 1em;
 		}
 	</ui:style>
 
 	<g:LayoutPanel>
-		<g:layer left="10%" right="10%" top="10%" bottom="10%">
-			<g:DecoratorPanel ui:field="loginPanel">
-				<g:VerticalPanel styleName="{style.vbox}">
-					<g:HorizontalPanel spacing="5">
-						<g:cell width='15em' horizontalAlignment='ALIGN_RIGHT'>
-							<g:Label>Username</g:Label>
-						</g:cell>
-						<g:cell>
-							<g:TextBox ui:field="usernameBox" width="100%"></g:TextBox>
-						</g:cell>
-					</g:HorizontalPanel>
-					<g:HorizontalPanel spacing="5">
-						<g:cell>
-							<g:Label>Password</g:Label>
-						</g:cell>
-						<g:cell>
-							<g:PasswordTextBox ui:field="passwordBox" width="100%"></g:PasswordTextBox>
-						</g:cell>
-					</g:HorizontalPanel>
-					<g:cell horizontalAlignment='ALIGN_RIGHT'>
-						<g:Button ui:field="loginButton" text="Login"></g:Button>
-					</g:cell>
-					<g:cell>
-						<g:Label ui:field="errorLabel"/>
-					</g:cell>
-				</g:VerticalPanel>
+		<g:layer left="35%" width="100%" top="50px" height="100%">
+			<g:DecoratorPanel ui:field="loginPanel" height="45"	width="275">
+				<g:HTMLPanel styleName='{style.header}'>
+					<div class='{style.headerItem}'>Username<g:TextBox ui:field="usernameBox" styleName="{style.textBox}"/></div>
+        			<div class='{style.headerItem}'>Password<g:PasswordTextBox ui:field="passwordBox" styleName="{style.textBox}"/></div>
+       				<div class='{style.headerItem}'><g:Button ui:field="loginButton" text="Login"/></div>
+       				<div class='{style.headerItem}'><g:Label ui:field="errorLabel" styleName="{style.errorText}"/></div>
+				</g:HTMLPanel>
 			</g:DecoratorPanel>
-		</g:layer>
 
+		</g:layer>
 	</g:LayoutPanel>
 
 </ui:UiBinder> 

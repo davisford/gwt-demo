@@ -15,6 +15,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -47,6 +48,7 @@ public class LoginView extends Composite implements LoginPresenter.Display {
 
 	public LoginView() {
 		initWidget(uiBinder.createAndBindUi(this));
+	
 	}
 
 	@Override
@@ -71,13 +73,7 @@ public class LoginView extends Composite implements LoginPresenter.Display {
 
 	@Override
 	public void toggleError(boolean val, String msg) {
-		if(val) {
-			errorLabel.addStyleName("errorBorder");
-			errorLabel.setText(msg);
-		} else {
-			errorLabel.removeStyleName("errorBorder");
-			errorLabel.setText(msg);
-		}
+		errorLabel.setText(msg);
 	}
 
 	@Override
