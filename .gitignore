@@ -1,0 +1,7 @@
+war/WEB-INF/classes/
+war/WEB-INF/lib/
+war/com.example.Application/
+target
+.settings/
+.classpath
+.project
