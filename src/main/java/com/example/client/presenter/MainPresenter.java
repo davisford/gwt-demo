@@ -3,13 +3,13 @@
  */
 package com.example.client.presenter;
 
+import com.example.client.event.EventBus;
 import com.example.client.event.LoginEvent;
 import com.example.client.event.LoginEventHandler;
 import com.example.client.service.UserServiceAsync;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -37,7 +37,7 @@ public class MainPresenter implements Presenter {
 	}
 	
 	private Display display;
-	private HandlerManager eventBus;
+	private EventBus eventBus;
 	
 	private UserServiceAsync userService;
 	
@@ -46,7 +46,7 @@ public class MainPresenter implements Presenter {
 	 * @param eventBus
 	 * @param display
 	 */
-	public MainPresenter(UserServiceAsync userService, HandlerManager eventBus, Display display) {
+	public MainPresenter(UserServiceAsync userService, EventBus eventBus, Display display) {
 		this.userService = userService;
 		this.display = display;
 		this.eventBus = eventBus;

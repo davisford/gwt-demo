@@ -1,5 +1,7 @@
 package com.example.client;
 
+import com.example.client.cookies.Cookies;
+import com.example.client.event.EventBus;
 import com.example.client.event.LoginEvent;
 import com.example.client.event.LoginEventHandler;
 import com.example.client.presenter.LoginPresenter;
@@ -12,18 +14,19 @@ import com.example.client.view.MainView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 public class AppController implements Presenter, ValueChangeHandler<String> {
 
-	private HandlerManager eventBus;
+	private EventBus eventBus;
+	private Cookies cookies;
 	private HasWidgets container;
 	private UserServiceAsync userService;
 	
-	public AppController(HandlerManager eventBus) {
+	public AppController(EventBus eventBus, Cookies cookies) {
 		this.eventBus = eventBus;
+		this.cookies = cookies;
 		userService = (UserServiceAsync) GWT.create(UserService.class);
 		bind();
 	}
@@ -53,7 +56,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			Presenter presenter = null;
 			
 			if(token.equals("login")) {
-				presenter = new LoginPresenter(userService, eventBus, new LoginView());
+				presenter = new LoginPresenter(userService, eventBus, cookies, new LoginView());
 			} else if(token.equals("main")) {
 				presenter = new MainPresenter(userService, eventBus, new MainView());
 			}
