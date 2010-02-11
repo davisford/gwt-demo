@@ -3,6 +3,9 @@
  */
 package com.example.server.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 import com.example.client.exception.LoginFailureException;
@@ -19,6 +22,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	private UserDao userDao;
 	
 	private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
+	
+	private Map<String, User> sessionMap = new HashMap<String, User>();
 
 	/* (non-Javadoc)
 	 * @see com.example.client.service.LoginService#login(com.example.client.model.User)
@@ -39,7 +44,9 @@ public class UserServiceImpl extends AbstractService implements UserService {
 			
 			// validate the password
 			if(BCrypt.checkpw(user.getPassword(), found.getPassword())) {
-				return httpSession.getId();
+				final String id = httpSession.getId();
+				sessionMap.put(id, found);
+				return id;
 			} else {
 				throw new LoginFailureException();
 			}
@@ -57,9 +64,19 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	public void logout(String sessionId) {
 		if(httpSession.getId().equals(sessionId)) {
 			LOGGER.debug("session ids are the same " + sessionId + " invalidating sesison now ");
+			sessionMap.remove(sessionId);
 			httpSession.invalidate();
 		} else {
 			throw new RuntimeException("Session Ids are not equal: "+sessionId + " != httpsession id: "+httpSession.getId());
+		}
+	}
+
+	@Override
+	public User isLoggedIn(String sessionId) throws LoginFailureException {
+		if(sessionMap.containsKey(sessionId)) {
+			return sessionMap.get(sessionId);
+		} else {
+			throw new LoginFailureException();
 		}
 	}
 

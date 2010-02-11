@@ -20,5 +20,10 @@ public interface UserServiceAsync {
 	 * @see {@link UserService#logout(String)}
 	 */
 	void logout(String sessionId, AsyncCallback<Void> callback);
+
+	/**
+	 * @see {@link UserService#isLoggedIn(String)}
+	 */
+	void isLoggedIn(String sessionId, AsyncCallback<User> callback);
 	
 }

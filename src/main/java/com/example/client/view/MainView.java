@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -24,10 +25,13 @@ public class MainView extends Composite implements MainPresenter.Display {
 	}
 	
 	@UiField
-	Label welcomeLabel;
+	Label nameLabel;
 	
 	@UiField
 	Hyperlink logoutLink;
+	
+	@UiField
+	Grid grid;
 
 
 	public MainView() {
@@ -42,8 +46,8 @@ public class MainView extends Composite implements MainPresenter.Display {
 
 
 	@Override
-	public void setWelcomeText(String text) {
-		welcomeLabel.setText(text);
+	public void setNameText(String text) {
+		nameLabel.setText(text);
 	}
 
 

@@ -141,7 +141,7 @@ public class LoginPresenter implements Presenter {
 
 		@Override
 		public void onSuccess(String sessionId) {
-			// two weeks
+			// set a client side cookie for two weeks
 			final long DURATION = 1000 * 60 * 60 * 24 * 14;
 			final Date expires = new Date(System.currentTimeMillis() + DURATION);
 			cookies.setCookie("sid", sessionId, expires, null, "/", false);

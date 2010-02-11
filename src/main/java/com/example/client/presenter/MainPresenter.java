@@ -3,6 +3,7 @@
  */
 package com.example.client.presenter;
 
+import com.example.client.cookies.Cookies;
 import com.example.client.event.EventBus;
 import com.example.client.event.LoginEvent;
 import com.example.client.event.LoginEventHandler;
@@ -10,7 +11,6 @@ import com.example.client.service.UserServiceAsync;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 
@@ -27,7 +27,7 @@ public class MainPresenter implements Presenter {
 		 * Set the welcome text after a user logs in
 		 * @param text
 		 */
-		void setWelcomeText(String text);
+		void setNameText(String text);
 		
 		/**
 		 * So we can assign a click handler
@@ -38,6 +38,7 @@ public class MainPresenter implements Presenter {
 	
 	private Display display;
 	private EventBus eventBus;
+	private Cookies cookies;
 	
 	private UserServiceAsync userService;
 	
@@ -46,8 +47,9 @@ public class MainPresenter implements Presenter {
 	 * @param eventBus
 	 * @param display
 	 */
-	public MainPresenter(UserServiceAsync userService, EventBus eventBus, Display display) {
+	public MainPresenter(UserServiceAsync userService, EventBus eventBus, Cookies cookies, Display display) {
 		this.userService = userService;
+		this.cookies = cookies;
 		this.display = display;
 		this.eventBus = eventBus;
 		bind();
@@ -72,14 +74,15 @@ public class MainPresenter implements Presenter {
 	LoginEventHandler loginHandler = new LoginEventHandler() {
 		@Override
 		public void onLogin(LoginEvent loginEvent) {
-			display.setWelcomeText("Welcome back, "+loginEvent.getUser().getUsername());
+			display.setNameText(loginEvent.getUser().getUsername());
 		}
 	};
 	
 	ClickHandler logoutClickHandler = new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent evt) {
-			userService.logout(Cookies.getCookie("sid"), new AsyncCallback<Void>() {
+			// logout on the server
+			userService.logout(cookies.getCookie("sid"), new AsyncCallback<Void>() {
 				@Override
 				public void onFailure(Throwable t) {
 					// no-op
@@ -91,6 +94,8 @@ public class MainPresenter implements Presenter {
 				}
 				
 			});
+			// clear the client side cookie
+			cookies.removeCookies("sid");
 		}
 		
 	};

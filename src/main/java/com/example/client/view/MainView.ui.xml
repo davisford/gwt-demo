@@ -3,28 +3,29 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 		/* Add CSS here. See the GWT docs on UI Binder for more details */
-		.headerText {
-			font-weight: bold;
+		.header td {
+			background: #eee;
+			border-bottom: 3px solid #666;
+			padding: 0.5em;
+			text-align: right;
+			width: 100%;
 		}
 		
-		.headerTable tr td {
-			border: 0;
-			margin: 0.2em, 0.2em, 0.2em, 0.2em;	
-			padding: 5px;
-			font-weight: bold;
-			font-size: 11px;
-			text-align: right;	
+		.headerItem {
+    		text-align: right;
 		}
 	</ui:style>
 	<g:DockLayoutPanel unit='EM'>
-		<g:north size='2'>
-			<g:HorizontalPanel styleName="{style.headerTable}" horizontalAlignment="ALIGN_RIGHT" width="100%" >
-				<g:Label styleName="{style.headerText}" ui:field="welcomeLabel">Welcome back</g:Label>
-				<g:Hyperlink styleName="{style.headerText}" targetHistoryToken="login" ui:field="logoutLink">Logout</g:Hyperlink>
+		<g:north size='5'>
+			<g:HorizontalPanel styleName="{style.header}">
+				<g:HTML>Welcome back </g:HTML>
+				<g:Label ui:field="nameLabel" styleName="{style.headerItem}" text="username"/>
+				<g:Hyperlink ui:field="logoutLink" text="Logout" styleName="{style.headerItem}" targetHistoryToken="login" />
 			</g:HorizontalPanel>
+			
 		</g:north>
-		<g:center>
-			<g:Label>Body goes here</g:Label>
+		<g:center size="25">
+			<g:Grid ui:field="grid"></g:Grid>
 		</g:center>
 		<g:west size='192'>
 			<g:HTML>
