@@ -14,27 +14,62 @@
 		.headerItem {
     		text-align: right;
 		}
+		
+		.footer td {
+			background: #eee;
+			border-top: 3px solid #666;
+			padding: 0.5em;
+			text-align: right;
+			width: 100%;	
+		}
+		
+		.footerItem {
+			text-align: center;
+		}
+		
+		.sidebar {
+			border-right: 2px solid #555;	
+		}
+			
 	</ui:style>
 	<g:DockLayoutPanel unit='EM'>
-		<g:north size='5'>
+		<g:north size='3'>
 			<g:HorizontalPanel styleName="{style.header}">
 				<g:HTML>Welcome back </g:HTML>
 				<g:Label ui:field="nameLabel" styleName="{style.headerItem}" text="username"/>
 				<g:Hyperlink ui:field="logoutLink" text="Logout" styleName="{style.headerItem}" targetHistoryToken="login" />
-			</g:HorizontalPanel>
-			
+			</g:HorizontalPanel>		
 		</g:north>
-		<g:center size="25">
-			<g:Grid ui:field="grid"></g:Grid>
+		<g:center size="250">
+			<g:VerticalPanel width="100" height="100">
+				<g:ScrollPanel width="100%" height="100%">
+					<g:Grid width="100%" height="100%" ui:field="grid"></g:Grid>
+				</g:ScrollPanel>
+				<g:HorizontalPanel width="100%">
+					<g:Button text="Refresh" />
+					<g:Button text="Delete" />
+					<g:Button text="New" />
+				</g:HorizontalPanel>
+			</g:VerticalPanel>		
 		</g:center>
-		<g:west size='192'>
-			<g:HTML>
+		
+		<g:south size='3'>
+			<g:HorizontalPanel styleName="{style.footer}">
+				<g:HTML styleName="{style.footerItem}">Footer text goes here</g:HTML>
+				<g:HTML styleName="{style.footerItem}"/>	
+			</g:HorizontalPanel>
+		</g:south>
+		
+		<g:west size='10'>
+			<g:HTML styleName="{style.sidebar}">
 				<ul>
-					<li>Sidebar</li>
+					<li>Sidebar Blah Blah</li>
 					<li>Sidebar</li>
 					<li>Sidebar</li>
 				</ul>
 			</g:HTML>
 		</g:west>
+		
+
 	</g:DockLayoutPanel>
 </ui:UiBinder> 

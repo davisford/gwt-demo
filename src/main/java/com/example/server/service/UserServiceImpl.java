@@ -6,6 +6,10 @@ package com.example.server.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionBindingListener;
+
 import org.apache.log4j.Logger;
 
 import com.example.client.exception.LoginFailureException;
@@ -17,13 +21,13 @@ import com.example.server.security.BCrypt;
 /**
  * Implementation of {@link UserService}
  */
-public class UserServiceImpl extends AbstractService implements UserService {
+public class UserServiceImpl extends AbstractService implements UserService, HttpSessionBindingListener {
 	
 	private UserDao userDao;
 	
 	private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 	
-	private Map<String, User> sessionMap = new HashMap<String, User>();
+	private final Map<String, User> sessionMap = new HashMap<String, User>();
 
 	/* (non-Javadoc)
 	 * @see com.example.client.service.LoginService#login(com.example.client.model.User)
@@ -51,26 +55,33 @@ public class UserServiceImpl extends AbstractService implements UserService {
 				throw new LoginFailureException();
 			}
 		} catch(Exception e) {
+			if(e instanceof LoginFailureException) {
+				// re-throw
+				throw (LoginFailureException)e;
+			}
 			LOGGER.error(e);
 			throw new LoginFailureException();
 		}
 	}
 	
-	public void setUserDao(UserDao dao) {
-		this.userDao = dao;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.service.UserService#logout(java.lang.String)
+	 */
 	@Override
 	public void logout(String sessionId) {
 		if(httpSession.getId().equals(sessionId)) {
-			LOGGER.debug("session ids are the same " + sessionId + " invalidating sesison now ");
 			sessionMap.remove(sessionId);
 			httpSession.invalidate();
 		} else {
-			throw new RuntimeException("Session Ids are not equal: "+sessionId + " != httpsession id: "+httpSession.getId());
+			LOGGER.error("Session Ids are not equal: "+sessionId + " != httpsession id: "+httpSession.getId());
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.service.UserService#isLoggedIn(java.lang.String)
+	 */
 	@Override
 	public User isLoggedIn(String sessionId) throws LoginFailureException {
 		if(sessionMap.containsKey(sessionId)) {
@@ -79,5 +90,40 @@ public class UserServiceImpl extends AbstractService implements UserService {
 			throw new LoginFailureException();
 		}
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.server.service.AbstractService#setHttpSession(javax.servlet.http.HttpSession)
+	 */
+	@Override
+	public void setHttpSession(HttpSession session) {
+		super.setHttpSession(session);
+		session.setAttribute("SessionBindingListener", this);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see javax.servlet.http.HttpSessionBindingListener#valueBound(javax.servlet.http.HttpSessionBindingEvent)
+	 */
+	@Override
+	public void valueBound(HttpSessionBindingEvent evt) {
+		// no-op
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see javax.servlet.http.HttpSessionBindingListener#valueUnbound(javax.servlet.http.HttpSessionBindingEvent)
+	 */
+	@Override
+	public void valueUnbound(HttpSessionBindingEvent evt) {
+		sessionMap.remove(evt.getSession().getId());
+	}	
+	
+	/**
+	 * Inject the {@link UserDao} this service depends on
+	 * @param dao
+	 */
+	public void setUserDao(UserDao dao) {
+		this.userDao = dao;
+	}
 }
