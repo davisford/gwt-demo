@@ -11,6 +11,7 @@
 		<property name="mappings">
 			<value>
 				/**/login.rpc=userController
+				/**/item.rpc=itemController
             </value>
 		</property>
 	</bean>
@@ -25,8 +26,11 @@
 	-->
 
 	<bean id="userController" class="com.example.server.controller.RpcController">
-		<description>Login controller for contract holders</description>
 		<property name="service" ref="userService" />
+	</bean>
+	
+	<bean id="itemController" class="com.example.server.controller.RpcController">
+		<property name="service" ref="itemService" />
 	</bean>
 
 </beans>

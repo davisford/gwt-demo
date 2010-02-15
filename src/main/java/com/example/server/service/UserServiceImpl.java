@@ -3,9 +3,6 @@
  */
 package com.example.server.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
@@ -27,7 +24,6 @@ public class UserServiceImpl extends AbstractService implements UserService, Htt
 	
 	private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 	
-	private final Map<String, User> sessionMap = new HashMap<String, User>();
 
 	/* (non-Javadoc)
 	 * @see com.example.client.service.LoginService#login(com.example.client.model.User)

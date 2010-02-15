@@ -8,6 +8,8 @@ import com.example.client.model.User;
 import com.example.client.presenter.LoginPresenter;
 import com.example.client.presenter.MainPresenter;
 import com.example.client.presenter.Presenter;
+import com.example.client.service.ItemService;
+import com.example.client.service.ItemServiceAsync;
 import com.example.client.service.UserService;
 import com.example.client.service.UserServiceAsync;
 import com.example.client.view.LoginView;
@@ -24,6 +26,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 	private EventBus eventBus;
 	private HasWidgets container;
 	private UserServiceAsync userService;
+	private ItemServiceAsync itemService;
 	private Cookies cookies;
 	
 	private LoginPresenter loginPresenter;
@@ -33,9 +36,10 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		this.eventBus = eventBus;
 		this.cookies = cookies;
 		userService = (UserServiceAsync) GWT.create(UserService.class);
+		itemService = (ItemServiceAsync) GWT.create(ItemService.class);
 		
 		loginPresenter = new LoginPresenter(userService, eventBus, cookies, new LoginView());
-		mainPresenter =  new MainPresenter(userService, eventBus, cookies, new MainView());
+		mainPresenter =  new MainPresenter(userService, itemService, eventBus, cookies, new MainView());
 		bind();
 	}
 	

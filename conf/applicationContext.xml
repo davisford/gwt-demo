@@ -9,7 +9,12 @@
                         
     <bean id="userService" class="com.example.server.service.UserServiceImpl">
     	<property name="userDao" ref="userDao" />
-    </bean>                    
+    </bean>  
+    
+    <bean id="itemService" class="com.example.server.service.ItemServiceImpl">
+    	<property name="itemDao" ref="itemDao" />
+    </bean>                  
                         
-    <bean id="userDao" class="com.example.server.dao.UserDaoImpl" />                    
+    <bean id="userDao" class="com.example.server.dao.UserDaoImpl" />  
+    <bean id="itemDao" class="com.example.server.dao.ItemDaoImpl" />                  
 </beans>

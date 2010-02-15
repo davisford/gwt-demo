@@ -1,6 +1,10 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+	<ui:image field='gradient' src='gradient_bg_dark.png'
+		repeatStyle='Horizontal' />
+
 	<ui:style>
 		/* Add CSS here. See the GWT docs on UI Binder for more details */
 		.header td {
@@ -12,7 +16,7 @@
 		}
 		
 		.headerItem {
-    		text-align: right;
+			text-align: right;
 		}
 		
 		.footer td {
@@ -20,56 +24,108 @@
 			border-top: 3px solid #666;
 			padding: 0.5em;
 			text-align: right;
-			width: 100%;	
+			width: 100%;
 		}
 		
 		.footerItem {
 			text-align: center;
 		}
 		
-		.sidebar {
-			border-right: 2px solid #555;	
+		.errorText {
+			color: red;
+			font-style: italic;
+			text-align: left;
 		}
-			
+		
+		.outer {
+			border-left: 1px solid #999;
+			border-bottom: 1px solid #999;
+			border-right: 1px solid #999;
+			margin: 3em 3em;
+			cursor: pointer;
+			cursor: hand;
+		}
+		
+		@sprite .tableHeader {
+			gwt-image: 'gradient';
+			background-color: #d3d6dd;
+			table-layout: fixed;
+			width: 100%;
+			height: 100%;
+		}
+		
+		.tableHeader td {
+			font-weight: bold;
+			text-shadow: #fff 0 2px 2px;
+			padding: 2px 0 1px 10px;
+			border-top: 1px solid #999;
+			border-bottom: 1px solid #999;
+		}
+		
+		.table {
+			table-layout: fixed;
+			width: 100%;
+		}
+		
+		.table td {
+			border: 1px solid #456;
+			padding: 2px 0 2px 10px;
+		}
 	</ui:style>
+
+	<ui:style field='selectionStyle'
+		type='com.example.client.view.MainView.SelectionStyle'>
+			.selectedRow {
+				background: #adcce7;
+			}
+			
+			.selectedRow td {
+				border-top: 1px solid #88a4d6;
+				border-bottom: 1px solid #7b97d0;
+			}
+		</ui:style>
+
 	<g:DockLayoutPanel unit='EM'>
-		<g:north size='3'>
+		<g:north size="3">
 			<g:HorizontalPanel styleName="{style.header}">
 				<g:HTML>Welcome back </g:HTML>
-				<g:Label ui:field="nameLabel" styleName="{style.headerItem}" text="username"/>
-				<g:Hyperlink ui:field="logoutLink" text="Logout" styleName="{style.headerItem}" targetHistoryToken="login" />
-			</g:HorizontalPanel>		
+				<g:Label ui:field="nameLabel" styleName="{style.headerItem}"
+					text="username" />
+				<g:Hyperlink ui:field="logoutLink" text="Logout"
+					styleName="{style.headerItem}" targetHistoryToken="login" />
+			</g:HorizontalPanel>
 		</g:north>
-		<g:center size="250">
-			<g:VerticalPanel width="100" height="100">
-				<g:ScrollPanel width="100%" height="100%">
-					<g:Grid width="100%" height="100%" ui:field="grid"></g:Grid>
-				</g:ScrollPanel>
-				<g:HorizontalPanel width="100%">
-					<g:Button text="Refresh" />
-					<g:Button text="Delete" />
-					<g:Button text="New" />
-				</g:HorizontalPanel>
-			</g:VerticalPanel>		
+		<g:center>
+			<g:DockLayoutPanel styleName="{style.outer}" unit="EM">
+				<g:north size="2">
+					<g:FlexTable ui:field="header" styleName="{style.tableHeader}"
+						cellSpacing="0" cellPadding="0" />
+				</g:north>
+				<g:center>
+					<g:ScrollPanel>
+						<g:FlexTable ui:field="table" styleName="{style.table}"
+							cellSpacing="0" cellPadding="0" />
+					</g:ScrollPanel>
+				</g:center>
+				<g:south size="3">
+					<g:HorizontalPanel horizontalAlignment="ALIGN_RIGHT" spacing="3">
+						<g:Button ui:field="refreshButton" text="Refresh" />
+						<g:Button ui:field="deleteButton" text="Delete" />
+						<g:Button ui:field="newButton" text="New" />
+						<g:Label ui:field="errorLabel" styleName="{style.errorText}"></g:Label>
+					</g:HorizontalPanel>
+				</g:south>
+			</g:DockLayoutPanel>
+			
 		</g:center>
-		
-		<g:south size='3'>
+
+		<g:south size="3">
 			<g:HorizontalPanel styleName="{style.footer}">
 				<g:HTML styleName="{style.footerItem}">Footer text goes here</g:HTML>
-				<g:HTML styleName="{style.footerItem}"/>	
+				<g:HTML styleName="{style.footerItem}" />
 			</g:HorizontalPanel>
 		</g:south>
-		
-		<g:west size='10'>
-			<g:HTML styleName="{style.sidebar}">
-				<ul>
-					<li>Sidebar Blah Blah</li>
-					<li>Sidebar</li>
-					<li>Sidebar</li>
-				</ul>
-			</g:HTML>
-		</g:west>
-		
+
 
 	</g:DockLayoutPanel>
 </ui:UiBinder> 
