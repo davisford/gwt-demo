@@ -13,6 +13,7 @@ import com.example.client.exception.SessionTimedOutException;
 import com.example.client.model.Item;
 import com.example.client.service.ItemServiceAsync;
 import com.example.client.service.UserServiceAsync;
+import com.example.client.view.MainView.SelectedItemListener;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -77,6 +78,12 @@ public class MainPresenter implements Presenter {
 		 * clear the error message.
 		 */
 		void setErrorMsg(String msg);
+		
+		/**
+		 * Set the listener to callback when an item is selected
+		 * @param listener
+		 */
+		void setSelectedItemListener(SelectedItemListener listener);
 	}
 	
 	private Display display;
