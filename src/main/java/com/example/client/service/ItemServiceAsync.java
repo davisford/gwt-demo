@@ -16,11 +16,6 @@ public interface ItemServiceAsync {
 	void create(String sessionId, Item item, AsyncCallback<Void> callback);
 
 	/**
-	 * @see {@link ItemService#delete(String, Item)}
-	 */
-	void delete(String sessionId, Item item, AsyncCallback<Void> callback);
-
-	/**
 	 * @see {@link ItemService#delete(String, ArrayList)}
 	 */
 	void delete(String sessionId, ArrayList<Item> items, AsyncCallback<Void> callback);

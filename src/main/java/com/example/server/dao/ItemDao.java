@@ -19,12 +19,7 @@ public interface ItemDao {
 	 * @param item
 	 */
 	void update(Item item);
-	
-	/**
-	 * Delete an existing {@link Item}
-	 * @param item
-	 */
-	void delete(Item item);
+
 	
 	/**
 	 * Delete a list of {@link Item}s

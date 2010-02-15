@@ -38,16 +38,6 @@ public class ItemDaoImpl implements ItemDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.example.server.dao.ItemDao#delete(com.example.client.model.Item)
-	 */
-	@Override
-	public void delete(Item item) {
-		if(item == null) { return; }
-		
-		map.remove(item.getId());
-	}
-
-	/* (non-Javadoc)
 	 * @see com.example.server.dao.ItemDao#delete(java.util.ArrayList)
 	 */
 	@Override

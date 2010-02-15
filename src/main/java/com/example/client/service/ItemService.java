@@ -40,14 +40,6 @@ public interface ItemService extends RemoteService {
 	void update(String sessionId, Item item) throws SessionTimedOutException, ItemServiceException;
 	
 	/**
-	 * Delete an existing {@link Item}
-	 * 
-	 * @param sessionId
-	 * @param item
-	 */
-	void delete(String sessionId, Item item) throws SessionTimedOutException, ItemServiceException;
-	
-	/**
 	 * Delete a list of {@link Item}s
 	 * 
 	 * @param sessionId

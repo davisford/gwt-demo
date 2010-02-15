@@ -36,19 +36,6 @@ public class ItemServiceImpl extends AbstractService implements ItemService {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.example.client.service.ItemService#delete(java.lang.String, com.example.client.model.Item)
-	 */
-	@Override
-	public void delete(String sessionId, Item item)	throws SessionTimedOutException, ItemServiceException {
-		try {
-			itemDao.delete(item);
-		} catch(Exception ex) {
-			LOGGER.error(ex);
-			throw new ItemServiceException();
-		}
-	}
-
-	/* (non-Javadoc)
 	 * @see com.example.client.service.ItemService#delete(java.lang.String, java.util.ArrayList)
 	 */
 	@Override

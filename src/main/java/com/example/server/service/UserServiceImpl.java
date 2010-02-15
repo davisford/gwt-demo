@@ -45,6 +45,8 @@ public class UserServiceImpl extends AbstractService implements UserService, Htt
 			// validate the password
 			if(BCrypt.checkpw(user.getPassword(), found.getPassword())) {
 				final String id = httpSession.getId();
+				// nullify the password
+				found.setPassword(null);
 				sessionMap.put(id, found);
 				return id;
 			} else {
@@ -94,7 +96,7 @@ public class UserServiceImpl extends AbstractService implements UserService, Htt
 	@Override
 	public void setHttpSession(HttpSession session) {
 		super.setHttpSession(session);
-		session.setAttribute("SessionBindingListener", this);
+		httpSession.setAttribute("SessionBindingListener", this);
 	}
 	
 	/*
