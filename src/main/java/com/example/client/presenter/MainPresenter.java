@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import com.example.client.cookies.Cookies;
 import com.example.client.event.EventBus;
+import com.example.client.event.ItemCreateEvent;
+import com.example.client.event.ItemCreateEventHandler;
+import com.example.client.event.ItemUpdateEvent;
+import com.example.client.event.ItemUpdateEventHandler;
 import com.example.client.event.LoginEvent;
 import com.example.client.event.LoginEventHandler;
 import com.example.client.exception.SessionTimedOutException;
@@ -23,7 +27,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 /**
  * Presenter for the main view
  */
-public class MainPresenter implements Presenter {
+public class MainPresenter implements Presenter, SelectedItemListener {
 	
 	/**
 	 * Display interface for the main view
@@ -93,23 +97,30 @@ public class MainPresenter implements Presenter {
 	private UserServiceAsync userService;
 	private ItemServiceAsync itemService;
 	
+	private ItemPresenter itemPresenter;
+	
 	/**
 	 * Constructor
 	 * @param eventBus
 	 * @param display
 	 */
-	public MainPresenter(UserServiceAsync userService, ItemServiceAsync itemService, EventBus eventBus, Cookies cookies, Display display) {
+	public MainPresenter(UserServiceAsync userService, ItemServiceAsync itemService, EventBus eventBus, Cookies cookies, ItemPresenter itemPresenter, Display display) {
 		this.userService = userService;
 		this.itemService = itemService;
 		this.cookies = cookies;
 		this.display = display;
 		this.eventBus = eventBus;
+		this.itemPresenter = itemPresenter;
 		bind();
 	}
 	
 	private void bind() {
 		// let me know when login happens so i can update the welcome text and fetch the items
 		eventBus.addHandler(LoginEvent.TYPE, loginHandler);
+		
+		eventBus.addHandler(ItemCreateEvent.TYPE, createItemHandler);
+		
+		eventBus.addHandler(ItemUpdateEvent.TYPE, updateItemHandler);
 		
 		// add handler when user clicks logout link
 		display.logoutLink().addClickHandler(logoutClickHandler);
@@ -119,6 +130,10 @@ public class MainPresenter implements Presenter {
 		
 		// add handler when user clicks delete button
 		display.delete().addClickHandler(deleteClickHandler);
+		
+		display.newItemClick().addClickHandler(newClickHandler);
+		
+		display.setSelectedItemListener(this);
 		
 	}
 
@@ -163,6 +178,14 @@ public class MainPresenter implements Presenter {
 		
 	};
 	
+	ClickHandler newClickHandler = new ClickHandler() {
+		@Override
+		public void onClick(ClickEvent arg0) {
+			itemPresenter.showView(new Item());
+		}
+		
+	};
+	
 	ClickHandler refreshClickHandler = new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent evt) {
@@ -190,12 +213,12 @@ public class MainPresenter implements Presenter {
 		public void onClick(ClickEvent arg0) {
 			final ArrayList<Item> list = display.getSelectedItems();
 			if(list.size() > 0) {
-				itemService.delete(cookies.getCookie("sid"), list, deleteCallback);
+				itemService.delete(cookies.getCookie("sid"), list, serviceCallback);
 			}
 		}
 	};
 	
-	AsyncCallback<Void> deleteCallback = new AsyncCallback<Void>() {
+	AsyncCallback<Void> serviceCallback = new AsyncCallback<Void>() {
 		@Override
 		public void onFailure(Throwable t) {
 			handleThrowable(t);
@@ -207,6 +230,20 @@ public class MainPresenter implements Presenter {
 			refreshClickHandler.onClick(null);
 		}
 		
+	};
+	
+	ItemCreateEventHandler createItemHandler = new ItemCreateEventHandler() {
+		@Override
+		public void onCreate(ItemCreateEvent event) {
+			itemService.create(cookies.getCookie("sid"), event.getItem(), serviceCallback);
+		}
+	};
+	
+	ItemUpdateEventHandler updateItemHandler = new ItemUpdateEventHandler() {
+		@Override
+		public void onUpdate(ItemUpdateEvent event) {
+			itemService.update(cookies.getCookie("sid"), event.getItem(), serviceCallback);
+		}
 	};
 	
 	/**
@@ -226,5 +263,11 @@ public class MainPresenter implements Presenter {
 			display.setErrorMsg(throwable.getMessage());
 		}
 	}
+
+	@Override
+	public void onSelectedItem(Item item) {
+		itemPresenter.showView(item);
+	}
+	
 
 }

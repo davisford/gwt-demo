@@ -106,7 +106,10 @@ public class MainView extends ResizeComposite implements MainPresenter.Display {
 		Cell cell = table.getCellForEvent(event);
 		if (cell != null) {
 			int row = cell.getRowIndex();
-			selectRow(row);
+			if(cell.getCellIndex() != 3) {
+				// don't select if checkbox is ticked
+				selectRow(row);
+			}
 		}
 	}
 

@@ -5,7 +5,6 @@ package com.example.client.view;
 
 import com.example.client.model.Item;
 import com.example.client.presenter.ItemPresenter;
-import com.example.client.view.MainView.SelectedItemListener;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -90,6 +89,10 @@ public class ItemView extends Composite implements ItemPresenter.Display {
 	@Override
 	public void showPopUp(Item item) {
 		this.item = item;
+		nameBox.setText(item.getName());
+		descriptionBox.setText(item.getDescription());
+		datePicker.setCurrentMonth(item.getDate());
+		datePicker.setValue(item.getDate());
 		dialogBox = new DialogBox();
 		dialogBox.setText("Create/Edit an Item");
 		dialogBox.setWidget(this);

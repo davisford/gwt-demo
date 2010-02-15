@@ -13,8 +13,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
- * @author davisford
- *
+ * Presenter class for Item View
  */
 public class ItemPresenter implements Presenter {
 	
@@ -47,7 +46,6 @@ public class ItemPresenter implements Presenter {
 		 * Tell the display to show the popup
 		 */
 		void showPopUp(Item item);
-		
 
 	}
 	

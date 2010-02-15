@@ -5,6 +5,7 @@ import com.example.client.event.EventBus;
 import com.example.client.event.LoginEvent;
 import com.example.client.event.LoginEventHandler;
 import com.example.client.model.User;
+import com.example.client.presenter.ItemPresenter;
 import com.example.client.presenter.LoginPresenter;
 import com.example.client.presenter.MainPresenter;
 import com.example.client.presenter.Presenter;
@@ -12,6 +13,7 @@ import com.example.client.service.ItemService;
 import com.example.client.service.ItemServiceAsync;
 import com.example.client.service.UserService;
 import com.example.client.service.UserServiceAsync;
+import com.example.client.view.ItemView;
 import com.example.client.view.LoginView;
 import com.example.client.view.MainView;
 import com.google.gwt.core.client.GWT;
@@ -39,7 +41,8 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		itemService = (ItemServiceAsync) GWT.create(ItemService.class);
 		
 		loginPresenter = new LoginPresenter(userService, eventBus, cookies, new LoginView());
-		mainPresenter =  new MainPresenter(userService, itemService, eventBus, cookies, new MainView());
+		ItemPresenter itemPresenter = new ItemPresenter(eventBus, new ItemView());
+		mainPresenter =  new MainPresenter(userService, itemService, eventBus, cookies, itemPresenter, new MainView());
 		bind();
 	}
 	

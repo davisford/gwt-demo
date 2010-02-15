@@ -12,7 +12,7 @@ public class Item implements IsSerializable {
 	
 	private String description;
 	
-	private Date date;
+	private Date date = new Date();
 	
 	/**
 	 * Must have a default no-arg constructor
