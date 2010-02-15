@@ -69,7 +69,6 @@ public class RpcController extends RemoteServiceServlet implements Controller,
 			if(!(service instanceof UserService)) {
 				validateSession(rpcRequest.getParameters());
 			}
-			// TODO: check security here
 			// delegate work to the spring injected service
 			return RPC.invokeAndEncodeResponse(service, rpcRequest.getMethod(), rpcRequest.getParameters());
 		} catch (IncompatibleRemoteServiceException ex) {
@@ -85,7 +84,7 @@ public class RpcController extends RemoteServiceServlet implements Controller,
 	 * @param params rpc parameters
 	 * @throws SessionTimedOutException in all cases unless the sessionId is valid
 	 */
-	private void validateSession(Object[] params) throws SessionTimedOutException {
+	/* package */ void validateSession(Object[] params) throws SessionTimedOutException {
 		if(params != null && params.length > 0 && (params[0] instanceof String)) {
 			String s = (String) params[0];
 			BaseService bs = (BaseService)service;
