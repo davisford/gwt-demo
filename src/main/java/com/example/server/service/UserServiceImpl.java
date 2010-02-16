@@ -45,9 +45,9 @@ public class UserServiceImpl extends AbstractService implements UserService, Htt
 			// validate the password
 			if(BCrypt.checkpw(user.getPassword(), found.getPassword())) {
 				final String id = httpSession.getId();
-				// nullify the password
-				found.setPassword(null);
-				sessionMap.put(id, found);
+				// we clone the found user; we don't want to send back encrypted password
+				User retval = found.clone();
+				sessionMap.put(id, retval);
 				return id;
 			} else {
 				throw new LoginFailureException();

@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 /**
  * The model class that represents a user of the system
  */
-public class User implements IsSerializable {
+public class User implements IsSerializable{
 	
 	// serial uid
 	private static final long serialVersionUID = 1L;
@@ -96,6 +96,14 @@ public class User implements IsSerializable {
 	@Override
 	public String toString() {
 		return "User [password=*******, username=" + username + "]";
+	}
+	
+
+	public User clone() {
+		User user = new User();
+		user.setUsername(this.getUsername());
+		// we explicitly do not clone the password
+		return user;
 	}
 
 
