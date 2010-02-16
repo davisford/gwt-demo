@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.example.client;
 
 import com.example.client.cookies.Cookies;
@@ -11,8 +8,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 /**
- * @author davisford
- *
+ * This is the entry point into the application
  */
 public class Application implements EntryPoint {
 

@@ -3,11 +3,11 @@
  */
 package com.example.client.exception;
 
+import com.example.client.service.UserService;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * @author davisford
- *
+ * Thrown from the server if anything goes wrong with the {@link UserService}
  */
 public class LoginFailureException extends Exception implements IsSerializable {
 

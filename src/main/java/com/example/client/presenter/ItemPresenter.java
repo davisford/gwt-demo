@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.example.client.presenter;
 
 import com.example.client.event.EventBus;
@@ -17,6 +14,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
  */
 public class ItemPresenter implements Presenter {
 	
+	/**
+	 * The interface {@link ItemPresenter} uses to manipulate it's view class
+	 */
 	public interface Display extends WidgetDisplay {
 		
 		/**
@@ -52,6 +52,12 @@ public class ItemPresenter implements Presenter {
 	private Display display;
 	private EventBus eventBus;
 	
+	/**
+	 * Constructor
+	 * <p>
+	 * @param eventBus
+	 * @param display
+	 */
 	public ItemPresenter(EventBus eventBus, ItemPresenter.Display display) {
 		this.eventBus = eventBus;
 		this.display = display;
@@ -59,6 +65,10 @@ public class ItemPresenter implements Presenter {
 		display.cancel().addClickHandler(cancelHandler);
 	}
 	
+	/**
+	 * Allows other presenters to instruct this instance to show a view for a edit/create and {@link Item}
+	 * @param item the item to be created or edited
+	 */
 	public void showView(Item item) {
 		display.showPopUp(item);
 	}
@@ -72,6 +82,9 @@ public class ItemPresenter implements Presenter {
 		container.add(display.asWidget());
 	}
 	
+	/**
+	 * The handler that runs when the save button is clicked
+	 */
 	ClickHandler saveHandler = new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent evt) {
@@ -85,12 +98,14 @@ public class ItemPresenter implements Presenter {
 		}
 	};
 	
+	/**
+	 * The handler that runs when the cancel button is clicked
+	 */
 	ClickHandler cancelHandler = new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent arg0) {
 			display.removePopUp();
 		}
-		
 	};
 
 }

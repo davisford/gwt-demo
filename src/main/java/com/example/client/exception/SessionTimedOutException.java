@@ -2,6 +2,9 @@ package com.example.client.exception;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+/**
+ * Thrown from the server if the session id is not valid for any service request
+ */
 public class SessionTimedOutException extends Exception implements IsSerializable  {
 
 	// serial uid

@@ -2,18 +2,16 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		/* Add CSS here. See the GWT docs on UI Binder for more details */
-		
 		.header {
-    		background: #eee;
-    		border-bottom: 1px solid #666;
-    		padding: 0.5em;
-  		}
-  		
-  		 .headerItem {
-    		margin-bottom:0.5em;
-    		text-align: right;
-  		}
+			background: #eee;
+			border-bottom: 1px solid #666;
+			padding: 0.5em;
+		}
+		
+		.headerItem {
+			margin-bottom: 0.5em;
+			text-align: right;
+		}
 		
 		.errorText {
 			color: red;
@@ -21,22 +19,33 @@
 			text-align: left;
 		}
 		
-		.textBox {	
+		.textBox {
 			margin-left: 1em;
 		}
 	</ui:style>
 
 	<g:LayoutPanel>
 		<g:layer left="35%" width="100%" top="50px" height="100%">
-			<g:DecoratorPanel ui:field="loginPanel" height="45"	width="275">
+			<g:DecoratorPanel ui:field="loginPanel" height="45"
+				width="275">
 				<g:HTMLPanel styleName='{style.header}'>
-					<div class='{style.headerItem}'>Username<g:TextBox ui:field="usernameBox" styleName="{style.textBox}"/></div>
-        			<div class='{style.headerItem}'>Password<g:PasswordTextBox ui:field="passwordBox" styleName="{style.textBox}"/></div>
-       				<div class='{style.headerItem}'><g:Button ui:field="loginButton" text="Login"/></div>
-       				<div class='{style.headerItem}'><g:Label ui:field="errorLabel" styleName="{style.errorText}"/></div>
+					<div class='{style.headerItem}'>
+						Username
+						<g:TextBox ui:field="usernameBox" styleName="{style.textBox}" />
+					</div>
+					<div class='{style.headerItem}'>
+						Password
+						<g:PasswordTextBox ui:field="passwordBox"
+							styleName="{style.textBox}" />
+					</div>
+					<div class='{style.headerItem}'>
+						<g:Button ui:field="loginButton" text="Login" />
+					</div>
+					<div class='{style.headerItem}'>
+						<g:Label ui:field="errorLabel" styleName="{style.errorText}" />
+					</div>
 				</g:HTMLPanel>
 			</g:DecoratorPanel>
-
 		</g:layer>
 	</g:LayoutPanel>
 

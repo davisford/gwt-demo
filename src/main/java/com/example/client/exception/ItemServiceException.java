@@ -3,11 +3,11 @@
  */
 package com.example.client.exception;
 
+import com.example.client.service.ItemService;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * @author davisford
- *
+ * Thrown from the server if anything goes wrong with the {@link ItemService}
  */
 public class ItemServiceException extends Exception implements IsSerializable {
 	

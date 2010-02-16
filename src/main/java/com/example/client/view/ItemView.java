@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.example.client.view;
 
 import com.example.client.model.Item;
@@ -16,8 +13,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
 /**
- * @author davisford
- *
+ * View class for {@link Item} create / edit.
+ * <p>
+ * Note: this class does not tie into a UiBinder XML
  */
 public class ItemView extends Composite implements ItemPresenter.Display {
 
@@ -58,6 +56,10 @@ public class ItemView extends Composite implements ItemPresenter.Display {
 		initWidget(vPanel);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.ItemPresenter.Display#getItem()
+	 */
 	@Override
 	public Item getItem() {
 		item.setName(nameBox.getText());
@@ -66,26 +68,46 @@ public class ItemView extends Composite implements ItemPresenter.Display {
 		return item;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.ItemPresenter.Display#save()
+	 */
 	@Override
 	public HasClickHandlers save() {
 		return saveButton;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.WidgetDisplay#asWidget()
+	 */
 	@Override
 	public Widget asWidget() {
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.ItemPresenter.Display#cancel()
+	 */
 	@Override
 	public HasClickHandlers cancel() {
 		return cancelButton;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.ItemPresenter.Display#removePopUp()
+	 */
 	@Override
 	public void removePopUp() {
 		dialogBox.hide();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.ItemPresenter.Display#showPopUp(com.example.client.model.Item)
+	 */
 	@Override
 	public void showPopUp(Item item) {
 		this.item = item;
@@ -101,5 +123,4 @@ public class ItemView extends Composite implements ItemPresenter.Display {
 		dialogBox.center();
 		dialogBox.show();
 	}
-
 }

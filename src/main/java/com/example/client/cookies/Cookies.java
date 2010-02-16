@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.example.client.cookies;
 
 import java.util.Collection;

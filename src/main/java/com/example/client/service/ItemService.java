@@ -19,7 +19,6 @@ public interface ItemService extends RemoteService {
 	 * 
 	 * @param sessionId
 	 * @return
-	 * @throws SessionTimedOutException
 	 */
 	ArrayList<Item> findAll(String sessionId) throws SessionTimedOutException, ItemServiceException;
 	

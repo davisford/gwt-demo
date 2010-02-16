@@ -7,8 +7,7 @@ import com.example.client.model.User;
 import com.google.gwt.event.shared.GwtEvent;
 
 /**
- * @author davisford
- *
+ * Fired when a user has successfully logged into the server
  */
 public class LoginEvent extends GwtEvent<LoginEventHandler> {
 

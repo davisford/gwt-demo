@@ -6,7 +6,6 @@
 		repeatStyle='Horizontal' />
 
 	<ui:style>
-		/* Add CSS here. See the GWT docs on UI Binder for more details */
 		.header td {
 			background: #eee;
 			border-bottom: 3px solid #666;
@@ -108,7 +107,8 @@
 					</g:ScrollPanel>
 				</g:center>
 				<g:south size="3">
-					<g:HorizontalPanel horizontalAlignment="ALIGN_RIGHT" spacing="3">
+					<g:HorizontalPanel horizontalAlignment="ALIGN_RIGHT"
+						spacing="3">
 						<g:Button ui:field="refreshButton" text="Refresh" />
 						<g:Button ui:field="deleteButton" text="Delete" />
 						<g:Button ui:field="newButton" text="New" />
@@ -116,7 +116,6 @@
 					</g:HorizontalPanel>
 				</g:south>
 			</g:DockLayoutPanel>
-			
 		</g:center>
 
 		<g:south size="3">
@@ -125,7 +124,5 @@
 				<g:HTML styleName="{style.footerItem}" />
 			</g:HorizontalPanel>
 		</g:south>
-
-
 	</g:DockLayoutPanel>
 </ui:UiBinder> 

@@ -3,6 +3,9 @@ package com.example.client.event;
 import com.example.client.model.Item;
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * Fired when an item should be sent to the server and updated with the new values
+ */
 public class ItemUpdateEvent extends GwtEvent<ItemUpdateEventHandler> {
 	
 	public static Type<ItemUpdateEventHandler> TYPE = new Type<ItemUpdateEventHandler>();

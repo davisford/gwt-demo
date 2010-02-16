@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.example.client.presenter;
 
 import java.util.Date;
@@ -27,6 +24,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
  */
 public class LoginPresenter implements Presenter {
 	
+	/**
+	 * The interface {@link LoginPresenter} uses to manipulate it's view class
+	 */
 	public interface Display extends WidgetDisplay {
 		/**
 		 * Get the {@link User} that we'll attempt to login
@@ -149,7 +149,5 @@ public class LoginPresenter implements Presenter {
 			// fire event
 			eventBus.fireEvent(new LoginEvent(user));
 		}
-		
 	};
-
 }

@@ -75,5 +75,14 @@ public class UserTest {
 	public void testEqualsObject() {
 		BeanTestCase.assertMeetsEqualsContract(User.class);
 	}
+	
+	@Test
+	public void testClone() {
+		user = new User(NAME, PASS);
+		User clone = user.clone();
+		assertFalse(user.getPassword().equals(clone.getPassword()));
+		assertTrue(clone.getUsername().equals(user.getUsername()));
+		assertFalse(clone == user);
+	}
 
 }

@@ -3,6 +3,9 @@ package com.example.client.event;
 import com.example.client.model.Item;
 import com.google.gwt.event.shared.GwtEvent;
 
+/**
+ * Fired when an item should be sent to the server and persisted as new
+ */
 public class ItemCreateEvent extends GwtEvent<ItemCreateEventHandler> {
 	
 	public static Type<ItemCreateEventHandler> TYPE = new Type<ItemCreateEventHandler>();

@@ -23,6 +23,11 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * This is a {@link Presenter} without a view.  It is responsible for managing
+ * history and navigation events.  It also is responsible for bootstrapping the
+ * other major components in the application.
+ */
 public class AppController implements Presenter, ValueChangeHandler<String> {
 
 	private EventBus eventBus;
@@ -34,6 +39,12 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 	private LoginPresenter loginPresenter;
 	private MainPresenter mainPresenter;
 	
+	/**
+	 * Constructor
+	 * <p>
+	 * @param eventBus the application's {@link EventBus}
+	 * @param cookies the application's cookie manager
+	 */
 	public AppController(EventBus eventBus, Cookies cookies) {
 		this.eventBus = eventBus;
 		this.cookies = cookies;
@@ -54,17 +65,24 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 			new LoginEventHandler() {
 				@Override
 				public void onLogin(LoginEvent loginEvent) {
+					// if a login event occurs, we navigate
 					doLogin();
 				}
 		});
 	}
 	
+	/**
+	 * Switch the view if login was successful
+	 */
 	private void doLogin() {
 		History.newItem("main", false);
 		mainPresenter.go(container);
 	}
 	
-	
+	/*
+	 * (non-Javadoc)
+	 * @see com.google.gwt.event.logical.shared.ValueChangeHandler#onValueChange(com.google.gwt.event.logical.shared.ValueChangeEvent)
+	 */
 	@Override
 	public void onValueChange(ValueChangeEvent<String> event) {
 		final String token = event.getValue();
@@ -77,6 +95,9 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		}
 	}
 
+	/**
+	 * Our initial view
+	 */
 	@Override
 	public void go(HasWidgets container) {
 		this.container = container;
@@ -89,6 +110,11 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		}
 	}
 	
+	/**
+	 * If the user loads the application after having logged in,
+	 * we check if the session is still valid on the server 
+	 * before we just re-direct to the main view.
+	 */
 	private void navigateToMain() {
 		// check with the server if we are logged in
 		final String sid = cookies.getCookie("sid");
@@ -97,7 +123,9 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		}
 	}
 	
-	
+	/**
+	 * The callback from the server when we ask it if the session is logged in
+	 */
 	AsyncCallback<User> callback = new AsyncCallback<User>() {
 		@Override
 		public void onFailure(Throwable t) {
@@ -109,9 +137,9 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		public void onSuccess(User u) {
 			// we are logged in
 			mainPresenter.go(container);
+			// tell the world
 			eventBus.fireEvent(new LoginEvent(u));
 		}
-		
 	};
 
 }

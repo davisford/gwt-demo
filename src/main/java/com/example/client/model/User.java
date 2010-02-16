@@ -60,6 +60,10 @@ public class User implements IsSerializable{
 		this.password = password;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,6 +75,10 @@ public class User implements IsSerializable{
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,19 +101,23 @@ public class User implements IsSerializable{
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		return "User [password=*******, username=" + username + "]";
 	}
 	
-
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	public User clone() {
 		User user = new User();
 		user.setUsername(this.getUsername());
 		// we explicitly do not clone the password
 		return user;
 	}
-
-
-
 }

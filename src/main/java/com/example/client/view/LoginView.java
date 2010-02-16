@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.example.client.view;
 
 import java.util.ArrayList;
@@ -28,49 +25,65 @@ public class LoginView extends Composite implements LoginPresenter.Display {
 
 	private static LoginUiBinder uiBinder = GWT.create(LoginUiBinder.class);
 
-	interface LoginUiBinder extends UiBinder<Widget, LoginView> {
-	}
+	interface LoginUiBinder extends UiBinder<Widget, LoginView> {	}
 
-	@UiField
-	DecoratorPanel loginPanel;
+	@UiField DecoratorPanel loginPanel;
 	
-	@UiField
-	TextBox usernameBox;
+	@UiField TextBox usernameBox;
 	
-	@UiField
-	PasswordTextBox passwordBox;
+	@UiField PasswordTextBox passwordBox;
 	
-	@UiField
-	Button loginButton;
+	@UiField Button loginButton;
 	
-	@UiField
-	Label errorLabel;
+	@UiField Label errorLabel;
 
+	/**
+	 * Constructor
+	 */
 	public LoginView() {
 		initWidget(uiBinder.createAndBindUi(this));
-	
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.WidgetDisplay#asWidget()
+	 */
 	@Override
 	public Widget asWidget() {
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.LoginPresenter.Display#getUser()
+	 */
 	@Override
 	public User getUser() {
 		return new User(usernameBox.getText(), passwordBox.getText());
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.LoginPresenter.Display#loginButton()
+	 */
 	@Override
 	public HasClickHandlers loginButton() {
 		return loginButton;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.LoginPresenter.Display#setErrorMsg(java.lang.String)
+	 */
 	@Override
 	public void setErrorMsg(String msg) {
 		errorLabel.setText(msg);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.presenter.LoginPresenter.Display#keyDownHandlers()
+	 */
 	@Override
 	public List<HasKeyDownHandlers> keyDownHandlers() {
 		final List<HasKeyDownHandlers> list = new ArrayList<HasKeyDownHandlers>();
@@ -78,5 +91,4 @@ public class LoginView extends Composite implements LoginPresenter.Display {
 		list.add(passwordBox);
 		return list;
 	}
-
 }

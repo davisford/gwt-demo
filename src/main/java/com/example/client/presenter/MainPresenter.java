@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.example.client.presenter;
 
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public class MainPresenter implements Presenter, SelectedItemListener {
 	
 	/**
-	 * Display interface for the main view
+	 * The interface {@link MainPresenter} uses to manipulate it's view class
 	 */
 	public interface Display extends WidgetDisplay {
 		/**
@@ -56,7 +53,6 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 		 * @return
 		 */
 		HasClickHandlers delete();
-		
 		
 		/**
 		 * So we can assign a click handler to the new widget
@@ -101,10 +97,21 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 	
 	/**
 	 * Constructor
-	 * @param eventBus
-	 * @param display
+	 * <p>
+	 * @param userService used to logout a user
+	 * @param itemService used to do CRUD operations with server for {@link Item}
+	 * @param eventBus application event bus
+	 * @param cookies cookie management
+	 * @param itemPresenter needed to show widget for create/edit of {@link Item}
+	 * @param display our display class
 	 */
-	public MainPresenter(UserServiceAsync userService, ItemServiceAsync itemService, EventBus eventBus, Cookies cookies, ItemPresenter itemPresenter, Display display) {
+	public MainPresenter(
+			UserServiceAsync userService, 
+			ItemServiceAsync itemService, 
+			EventBus eventBus, 
+			Cookies cookies, 
+			ItemPresenter itemPresenter, 
+			MainPresenter.Display display) {
 		this.userService = userService;
 		this.itemService = itemService;
 		this.cookies = cookies;
@@ -117,24 +124,20 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 	private void bind() {
 		// let me know when login happens so i can update the welcome text and fetch the items
 		eventBus.addHandler(LoginEvent.TYPE, loginHandler);
-		
+		// let me know when someone requests that a new item be created
 		eventBus.addHandler(ItemCreateEvent.TYPE, createItemHandler);
-		
+		// let me know when someone requests that an item be updated
 		eventBus.addHandler(ItemUpdateEvent.TYPE, updateItemHandler);
-		
 		// add handler when user clicks logout link
 		display.logoutLink().addClickHandler(logoutClickHandler);
-		
 		// add handler when user clicks refresh button
 		display.refresh().addClickHandler(refreshClickHandler);
-		
 		// add handler when user clicks delete button
 		display.delete().addClickHandler(deleteClickHandler);
-		
+		// add handler when user clicks new button
 		display.newItemClick().addClickHandler(newClickHandler);
-		
+		// add a callback on the view to let me know when the user selects a row
 		display.setSelectedItemListener(this);
-		
 	}
 
 	/* (non-Javadoc)
@@ -146,6 +149,9 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 	    container.add(display.asWidget());
 	}
 	
+	/**
+	 * Handler that runs when a {@link LoginEvent} is fired
+	 */
 	LoginEventHandler loginHandler = new LoginEventHandler() {
 		@Override
 		public void onLogin(LoginEvent loginEvent) {
@@ -156,6 +162,9 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 		}
 	};
 	
+	/**
+	 * Handler that runs when the user clicks the logout link
+	 */
 	ClickHandler logoutClickHandler = new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent evt) {
@@ -178,22 +187,29 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 		
 	};
 	
+	/**
+	 * Handler that runs when the user clicks the new button
+	 */
 	ClickHandler newClickHandler = new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent arg0) {
 			itemPresenter.showView(new Item());
 		}
-		
 	};
 	
+	/**
+	 * Handler that runs when the user clicks the refresh button
+	 */
 	ClickHandler refreshClickHandler = new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent evt) {
 			itemService.findAll(cookies.getCookie("sid"), findCallback);
 		}
-		
 	};
 	
+	/**
+	 * Callback for finding {@link Item}s from the server
+	 */
 	AsyncCallback<ArrayList<Item>> findCallback = new AsyncCallback<ArrayList<Item>>() {
 		@Override
 		public void onFailure(Throwable t) {
@@ -204,11 +220,12 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 		public void onSuccess(ArrayList<Item> list) {
 			display.setItems(list);
 		}
-		
 	};
 	
+	/**
+	 * Handler that runs when the user clicks the delete button
+	 */
 	ClickHandler deleteClickHandler = new ClickHandler() {
-
 		@Override
 		public void onClick(ClickEvent arg0) {
 			final ArrayList<Item> list = display.getSelectedItems();
@@ -218,6 +235,9 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 		}
 	};
 	
+	/**
+	 * Generic callback that runs for most async service operations
+	 */
 	AsyncCallback<Void> serviceCallback = new AsyncCallback<Void>() {
 		@Override
 		public void onFailure(Throwable t) {
@@ -226,12 +246,14 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 
 		@Override
 		public void onSuccess(Void v) {
-			// delete was a success, let's refresh the view
+			// operation was a success, let's refresh the view
 			refreshClickHandler.onClick(null);
 		}
-		
 	};
 	
+	/**
+	 * Handler that runs when {@link ItemCreateEvent} is fired
+	 */
 	ItemCreateEventHandler createItemHandler = new ItemCreateEventHandler() {
 		@Override
 		public void onCreate(ItemCreateEvent event) {
@@ -239,6 +261,9 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 		}
 	};
 	
+	/**
+	 * Handler that runs when {@link ItemUpdateEvent} is fired
+	 */
 	ItemUpdateEventHandler updateItemHandler = new ItemUpdateEventHandler() {
 		@Override
 		public void onUpdate(ItemUpdateEvent event) {
@@ -247,7 +272,7 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 	};
 	
 	/**
-	 * Treat all {@link Throwable} the same.  If it is an instance of
+	 * Treat all {@link java.lang.Throwable} the same.  If it is an instance of
 	 * {@link SessionTimedOutException} we navigate back to login page.  Otherwise
 	 * we tell the display to show the error.
 	 * 
@@ -264,10 +289,13 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.example.client.view.MainView.SelectedItemListener#onSelectedItem(com.example.client.model.Item)
+	 */
 	@Override
 	public void onSelectedItem(Item item) {
+		// the view is telling us that the user selected an item
 		itemPresenter.showView(item);
 	}
-	
-
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.example.client.presenter;
 
 import com.google.gwt.user.client.ui.HasWidgets;
@@ -10,5 +7,9 @@ import com.google.gwt.user.client.ui.HasWidgets;
  */
 public interface Presenter {
 
+	/**
+	 * Instructs the presenter to update the {@link HasWidgets} <tt>container</tt> with it's own display
+	 * @param container the container to use as a parent
+	 */
 	void go(final HasWidgets container);
 }
