@@ -68,12 +68,11 @@ public class UserServiceImpl extends AbstractService implements UserService, Htt
 	 */
 	@Override
 	public void logout(String sessionId) {
-		if(httpSession.getId().equals(sessionId)) {
-			sessionMap.remove(sessionId);
-			httpSession.invalidate();
-		} else {
-			LOGGER.error("Session Ids are not equal: "+sessionId + " != httpsession id: "+httpSession.getId());
+		if(isSessionValid(sessionId) == false) {
+			LOGGER.error("sessionId: "+sessionId +" is already expired or does not match current sessionId: "+ httpSession.getId());
 		}
+		sessionMap.remove(sessionId);
+		httpSession.invalidate();
 	}
 
 	/*
@@ -82,7 +81,7 @@ public class UserServiceImpl extends AbstractService implements UserService, Htt
 	 */
 	@Override
 	public User isLoggedIn(String sessionId) throws LoginFailureException {
-		if(sessionMap.containsKey(sessionId)) {
+		if(isSessionValid(sessionId)) {
 			return sessionMap.get(sessionId);
 		} else {
 			throw new LoginFailureException();

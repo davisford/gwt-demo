@@ -113,14 +113,15 @@ public class UserServiceImplTest {
 	@Test
 	public void testLoginSuccess() throws LoginFailureException {
 		expect(dao.findByUserName("davis")).andReturn(user);
-		expect(httpSession.getId()).andReturn("123");
+		expect(httpSession.getId()).andReturn("123").times(2);
 		
 		replayAll();
 		String id = service.login(new User("davis", "davis"));
-		verifyAll();
-		
 		assertEquals(id, "123");
 		User actual = service.isLoggedIn("123");
+		verifyAll();
+		
+		
 		assertNull("Expect service to null out password ", actual.getPassword());
 		assertEquals("davis", actual.getUsername());
 	}
@@ -183,17 +184,20 @@ public class UserServiceImplTest {
 	@Test
 	public void testValueUnbound() throws LoginFailureException {
 		expect(dao.findByUserName("davis")).andReturn(user);
-		expect(httpSession.getId()).andReturn("123");
+		expect(httpSession.getId()).andReturn("123").times(2);
 		
 		replayAll();
-		String id = service.login(new User("davis", "davis"));
-		verifyAll();
 		
+		// login a user first
+		String id = service.login(new User("davis", "davis"));
+		
+		// assert the user is logged in
 		assertEquals(id, "123");
 		User actual = service.isLoggedIn("123");
 		assertNull("Expect service to null out password ", actual.getPassword());
 		assertEquals("davis", actual.getUsername());
 		
+		// fire an event that indicates the sesison expired
 		HttpSessionBindingEvent event = createMock(HttpSessionBindingEvent.class);
 		HttpSession mockSession = createMock(HttpSession.class);
 		expect(event.getSession()).andReturn(mockSession);
@@ -201,8 +205,11 @@ public class UserServiceImplTest {
 		
 		replay(event);
 		replay(mockSession);
+		
+		// call the method under test
 		service.valueUnbound(event);
 		
+		// validate that the user is no longer logged in
 		try {
 			service.isLoggedIn("123");
 			fail("expected exception");
@@ -210,6 +217,8 @@ public class UserServiceImplTest {
 			verify(event);
 			verify(mockSession);
 		}
+		
+		verifyAll();
 	}
 
 }

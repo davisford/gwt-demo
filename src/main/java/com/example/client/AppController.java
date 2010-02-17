@@ -4,6 +4,8 @@ import com.example.client.cookies.Cookies;
 import com.example.client.event.EventBus;
 import com.example.client.event.LoginEvent;
 import com.example.client.event.LoginEventHandler;
+import com.example.client.event.SessionTimedOutEvent;
+import com.example.client.event.SessionTimedOutEventHandler;
 import com.example.client.model.User;
 import com.example.client.presenter.ItemPresenter;
 import com.example.client.presenter.LoginPresenter;
@@ -61,22 +63,38 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 		// we listen for all history changes
 		History.addValueChangeHandler(this);
 		
+		// we listen for login events to navigate to main
 		eventBus.addHandler(LoginEvent.TYPE, 
 			new LoginEventHandler() {
 				@Override
 				public void onLogin(LoginEvent loginEvent) {
 					// if a login event occurs, we navigate
-					doLogin();
+					doMain();
 				}
+		});
+		
+		// we listen for session time out events to navigate to login
+		eventBus.addHandler(SessionTimedOutEvent.TYPE, 
+				new SessionTimedOutEventHandler() {
+					@Override
+					public void onTimeOut(SessionTimedOutEvent evt) {
+						// navigate back to login
+						doLogin();
+					}
 		});
 	}
 	
 	/**
 	 * Switch the view if login was successful
 	 */
-	private void doLogin() {
+	private void doMain() {
 		History.newItem("main", false);
 		mainPresenter.go(container);
+	}
+	
+	private void doLogin() {
+		History.newItem("login", false);
+		loginPresenter.go(container);
 	}
 	
 	/*

@@ -10,6 +10,7 @@ import com.example.client.event.ItemUpdateEvent;
 import com.example.client.event.ItemUpdateEventHandler;
 import com.example.client.event.LoginEvent;
 import com.example.client.event.LoginEventHandler;
+import com.example.client.event.SessionTimedOutEvent;
 import com.example.client.exception.SessionTimedOutException;
 import com.example.client.model.Item;
 import com.example.client.service.ItemServiceAsync;
@@ -282,8 +283,10 @@ public class MainPresenter implements Presenter, SelectedItemListener {
 		try {
 			throw t;
 		} catch(SessionTimedOutException e) {
-			// same as if user logged out
+			// this will do the appropriate logout on server if necessary
 			logoutClickHandler.onClick(null);
+			// this will navigate back to login screen
+			eventBus.fireEvent(new SessionTimedOutEvent());
 		} catch (Throwable throwable) {
 			display.setErrorMsg(throwable.getMessage());
 		}
